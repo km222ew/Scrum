@@ -1,0 +1,6 @@
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\bin\Debug\Medlemsregister.exe.config
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\bin\Debug\Medlemsregister.exe
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\bin\Debug\Medlemsregister.pdb
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\obj\Debug\Medlemsregister.csprojResolveAssemblyReference.cache
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\obj\Debug\Medlemsregister.exe
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\obj\Debug\Medlemsregister.pdb
