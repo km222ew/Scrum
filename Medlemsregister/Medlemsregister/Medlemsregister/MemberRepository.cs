@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Medlemsregister
     {
         Indefinite,
         New,
-        Name,
+        ID,
         PhoneNumber
     }
 
@@ -34,6 +35,34 @@ namespace Medlemsregister
                 _path = value;
             }
         }
+
+        public List<Member> Load()
+        {
+
+            List<Member> memberList = new List<Member>();
+            MemberReadStatus status = new MemberReadStatus();
+
+            using (StreamReader reader = new StreamReader(Path))
+            { 
+                int memberNumber = -1;
+
+                string line;
+                status = MemberReadStatus.Indefinite;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    
+                    
+                
+                
+                }
+            
+            
+            }
+        
+        
+        }
+
 
     }
 }
