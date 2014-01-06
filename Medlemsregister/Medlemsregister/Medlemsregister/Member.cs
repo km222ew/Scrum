@@ -4,44 +4,64 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Medlemsregister
 {
+    [Serializable()]
     class Member : IComparable, IComparable <Member>        
     {
 
-        private string _name;
-        private string _phoneNumber;
+        private string _firstname;
+        private string _lastName;
+        private int _phoneNumber;
+        private int _iD;
 
-        public string Name
+        public string FirstName
         {
 
-            get { return _name; }
+            get { return _firstname; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException();
                 }
-                _name = value;
+                _firstname = value;
             }
         }
 
-        public string PhoneNumber
+        public string LastName
         {
-            get { return _phoneNumber; }
+            get { return _lastName; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException();
                 }
-                _phoneNumber = value;
+                _lastName = value;
             }
+
+
+        }
+
+        public int PhoneNumber
+        {
+            get { return _phoneNumber; }
+            set { _phoneNumber = value; }
         
 
         }
 
+        public int ID
+        {
+            get { return _iD; }
+            set { _iD = value; }
+
+        }
+    
         public int CompareTo(object obj)
         {
             if (obj == null)
@@ -56,7 +76,7 @@ namespace Medlemsregister
                 throw new ArgumentException();
             }
 
-            return this.Name.CompareTo(other.Name);
+            return this.FirstName.CompareTo(other.FirstName);
 
         }
 
@@ -74,19 +94,15 @@ namespace Medlemsregister
                 throw new ArgumentException();
             }
 
-            return this.Name.CompareTo(other.Name);
+            return this.FirstName.CompareTo(other.FirstName);
         }
 
-        public Member(string name)
+        public Member(string name, string lastName, int phoneNumber, int iD)
         {
-            Name = name;
-            
-        }
-
-        public Member(string name, string phoneNumber)
-        {
-            Name = name;
-            PhoneNumber = phoneNumber;        
+            FirstName = name;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            ID = iD;
         
         }
 
