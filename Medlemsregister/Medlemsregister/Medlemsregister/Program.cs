@@ -12,13 +12,7 @@ namespace Medlemsregister
     {
         static void Main(string[] args)
         {
-
-
             List<Member> memberRegister = OpenRegister();
-            //List<Member> memberRegister = new List<Member>();
-            //memberRegister.Add(new Member("Thorny devil", "kj",1, 1));
-            //SaveRegister(memberRegister);
-
 
             bool terminate = false;
 
@@ -49,16 +43,15 @@ namespace Medlemsregister
 
                     case 5:
                         //ViewMember(memberRegister);
-                        break;
+                        //break;
 
                     case 6:
-                        //bool viewAll = true;
-                        //ViewMember(memberRegister, viewAll);
+                        bool viewAll = true;
+                        ViewMember(memberRegister, viewAll);
                         break;
                 }
             }
             while (!terminate);
-
         }
 
         private static void ContinueOnKeyPressed()
@@ -109,8 +102,8 @@ namespace Medlemsregister
                 Console.WriteLine("\n FEL! Ange ett nummer mellan 0 och 5.\n");
                 ContinueOnKeyPressed();
             } while (true);
-
         }
+
         private static List<Member> CreateMember(List<Member> members)
         {
             string firstName;  
@@ -118,10 +111,6 @@ namespace Medlemsregister
             int phoneNumber = 0;
             int id;
             int index;
-            
-            id = MemberId(members);
-            
-
 
             do
             {
@@ -143,54 +132,50 @@ namespace Medlemsregister
                 if (index == 1)
                 {
                     
-                        Console.WriteLine("\n ═════════════════════════════════════\n");
-                        Console.Write(" Förnamn: ");
-                        firstName = Console.ReadLine();
-                        if (string.IsNullOrWhiteSpace(firstName))
-                        {
-                            EmptyString();
-                            continue;
-                        }
-                        Console.Write(" Efternamn: ");
-                        lastName = Console.ReadLine();
-                        if (string.IsNullOrWhiteSpace(lastName))
-                        {
-                            EmptyString();
-                            continue;
-                        }
+                    Console.WriteLine("\n ═════════════════════════════════════\n");
+                    Console.Write(" Förnamn: ");
+                    firstName = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(firstName))
+                    {
+                        EmptyString();
+                        continue;
+                    }
+                    Console.Write(" Efternamn: ");
+                    lastName = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(lastName))
+                    {
+                        EmptyString();
+                        continue;
+                    }
                         
-                        while (phoneNumber <=0)
+                    while (phoneNumber <=0)
+                    {
+                        Console.Write(" Telefonnummer: ");
+                        if (int.TryParse(Console.ReadLine(), out phoneNumber) && phoneNumber >= 0 && phoneNumber <= int.MaxValue)
                         {
-                            Console.Write(" Telefonnummer: ");
-                            if (int.TryParse(Console.ReadLine(), out phoneNumber) && phoneNumber >= 0 && phoneNumber <= int.MaxValue)
-                            {
+                            id = MemberId(members);
+                            members.Add(new Member(firstName, lastName, phoneNumber, id));
 
-                                members.Add(new Member(firstName, lastName, phoneNumber, id));
+                            Console.WriteLine("\n ═════════════════════════════════════\n");
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine(" ╔═══════════════════════════════════╗ ");
+                            Console.WriteLine(" ║    Medlemmen har registrerats     ║ ");
+                            Console.WriteLine(" ╚═══════════════════════════════════╝ ");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ResetColor();
+                            ContinueOnKeyPressed();
 
-                                
+                            SaveRegister(members);
+                        }    
+                    }
 
-                                Console.WriteLine("\n ═════════════════════════════════════\n");
-                                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                                Console.ForegroundColor = ConsoleColor.White;
-                                Console.WriteLine(" ╔═══════════════════════════════════╗ ");
-                                Console.WriteLine(" ║    Medlemmen har registrerats     ║ ");
-                                Console.WriteLine(" ╚═══════════════════════════════════╝ ");
-                                Console.BackgroundColor = ConsoleColor.Black;
-                                Console.ResetColor();
-                                ContinueOnKeyPressed();
-                            }
-    
-                        }
-
-                        phoneNumber = 0;
-                    
+                    phoneNumber = 0;                    
                 }
                 else if (index == 0)
                 {
                     return members ;
-                }
-                
-
+                }                
             }
             else
             {
@@ -201,9 +186,8 @@ namespace Medlemsregister
             }
 
             } while (true);
-
-            //return members;
         }
+                
         private static void EmptyString()
         {
             Console.Clear();
@@ -224,18 +208,15 @@ namespace Medlemsregister
 
             for (int i = 0; i < members.Count; i++ )
             {
-
-                if (members[i].ID >= id )
+                if (members.ElementAt(i).ID >= id )
                 {
 
-                    id = members[i].ID +=1;
+                    id = (members.ElementAt(i).ID) + 1;
                 }
-
-
             }
-
             return id;
         }
+
         private static List<Member> OpenRegister()
         {
             List<Member> memberRegister = new List<Member>();
@@ -251,10 +232,7 @@ namespace Medlemsregister
                     memberRegister = register;
 
                     return memberRegister;
-
-
                 }
-
             }
             catch (IOException)
             {
@@ -270,10 +248,7 @@ namespace Medlemsregister
                 ContinueOnKeyPressed();
 
                 return memberRegister;
-
-            }
-
-            
+            }            
         }
 		    
         private static void SaveRegister(List<Member> members)
@@ -283,6 +258,7 @@ namespace Medlemsregister
                 using (Stream stream = File.Open("register.bin", FileMode.Create))
                 {
                     BinaryFormatter bin = new BinaryFormatter();
+                    members.Sort();
                     bin.Serialize(stream, members);
 
                     Console.Clear();
@@ -309,10 +285,30 @@ namespace Medlemsregister
                 Console.ResetColor();
 
                 ContinueOnKeyPressed();
-
-            }
-            
+            }            
         }
 
+        private static void ViewMember(List<Member> members, bool viewAll = false)
+        {
+            MemberView memberView = new MemberView();
+            
+            //if (viewAll == false)
+            //{
+                
+            //}            
+            //else
+            //{
+                //if (members == null || members.Count == 0)
+                //{
+                //    //MemberMissing();
+                //}
+                //else
+                //{
+                    Console.Clear();
+                    memberView.Render(members);
+                    ContinueOnKeyPressed();
+                //}
+            //}
+        }
     }
 }
