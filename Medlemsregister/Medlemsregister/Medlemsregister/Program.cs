@@ -39,6 +39,7 @@ namespace Medlemsregister
 
                     case 4:
                         //DeleteMember(memberRegister);
+                        memberRegister.RemoveAt(2);
                         break;
 
                     case 5:
@@ -90,7 +91,7 @@ namespace Medlemsregister
                 Console.WriteLine(" 5. Visa medlem.");
                 Console.WriteLine(" 6. Visa alla medlemmar.");
                 Console.WriteLine("\n ═════════════════════════════════════\n");
-                Console.Write(" Ange menyval [0-5]: ");
+                Console.Write(" Ange menyval [0-6]: ");
 
                 if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 6)
                 {
@@ -99,9 +100,76 @@ namespace Medlemsregister
 
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("\n FEL! Ange ett nummer mellan 0 och 5.\n");
+                Console.WriteLine("\n FEL! Ange ett nummer mellan 0 och 6.\n");
                 ContinueOnKeyPressed();
             } while (true);
+        }
+
+        private static Member GetMember(string header, List<Member> members)
+        {
+            do
+            {
+                int index = 0;
+                int read = 0;
+                Member memberSelection = null;
+
+                if (members == null || members.Count == 0)
+                {
+
+                    return memberSelection;
+                }
+
+                else
+                {
+                    Console.Clear();
+                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(" ╔═══════════════════════════════════╗ ");
+                    Console.WriteLine(" ║{0}║ ", header);
+                    Console.WriteLine(" ╚═══════════════════════════════════╝ ");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine();
+                    Console.WriteLine(" 0. Avbryt.");
+                    Console.WriteLine("\n -------------------------------------\n");
+
+                    for (int i = 0; i < members.Count; i++)
+                    {
+                        index++;
+                        Console.WriteLine(" {0}. {1} {2}", index, members[i].FirstName, members[i].LastName);
+                    }
+
+                    Console.WriteLine("\n ═════════════════════════════════════\n");
+                    Console.Write(" Ange menyval [0-{0}]: ", members.Count);
+                    Console.ResetColor();
+
+                    if (int.TryParse(Console.ReadLine(), out read) && read >= 0 && read <= members.Count)
+                    {
+
+                        if (read == 0)
+                        {
+                            memberSelection = null;
+                            return memberSelection;
+                        }
+                        else
+                        {
+                            read--;
+                            memberSelection = members[read];
+                            return memberSelection;
+                        }
+
+                    }
+
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\n FEL! Ange ett nummer mellan 0 och {0}.\n", members.Count);
+                        ContinueOnKeyPressed();
+                    }
+                }
+
+            }
+            while (true);
         }
 
         private static List<Member> CreateMember(List<Member> members)

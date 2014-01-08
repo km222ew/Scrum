@@ -76,7 +76,7 @@ namespace Medlemsregister
                 throw new ArgumentException();
             }
 
-            return this.LastName.CompareTo(other.LastName);
+            return this.ID.CompareTo(other.ID);
 
         }
 
@@ -94,7 +94,7 @@ namespace Medlemsregister
                 throw new ArgumentException();
             }
 
-            return this.LastName.CompareTo(other.LastName);
+            return this.ID.CompareTo(other.ID);
         }
 
         public Member(string name, string lastName, int phoneNumber, int iD)
