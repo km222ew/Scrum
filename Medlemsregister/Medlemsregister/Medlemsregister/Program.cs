@@ -39,12 +39,11 @@ namespace Medlemsregister
 
                     case 4:
                         //DeleteMember(memberRegister);
-                        memberRegister.RemoveAt(2);
                         break;
 
                     case 5:
-                        //ViewMember(memberRegister);
-                        //break;
+                        ViewMember(memberRegister);
+                        break;
 
                     case 6:
                         bool viewAll = true;
@@ -228,14 +227,32 @@ namespace Medlemsregister
                             Console.BackgroundColor = ConsoleColor.DarkGreen;
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine(" ╔═══════════════════════════════════╗ ");
-                            Console.WriteLine(" ║    Medlemmen har registrerats     ║ ");
+                            Console.WriteLine(" ║       Medlemmen har skapats       ║ ");
                             Console.WriteLine(" ╚═══════════════════════════════════╝ ");
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ResetColor();
-                            ContinueOnKeyPressed();
+                            Console.WriteLine("\n");
 
-                            SaveRegister(members);
-                        }    
+                            Console.WriteLine("Vill du spara den nya medlemmen till registret [j/n]?");
+
+                            ConsoleKeyInfo tan = Console.ReadKey(true);
+
+                            if (tan.KeyChar == 'j')
+                            {
+                                SaveRegister(members);
+                            }
+                            else if ( tan.KeyChar == 'n')
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\nInget har sparats");
+                                Console.ResetColor();
+                                ContinueOnKeyPressed();
+                            }
+
+                            
+                        }
+                  
                     }
 
                     phoneNumber = 0;                    
@@ -360,23 +377,42 @@ namespace Medlemsregister
         {
             MemberView memberView = new MemberView();
             
-            //if (viewAll == false)
-            //{
-                
-            //}            
-            //else
-            //{
-                //if (members == null || members.Count == 0)
-                //{
-                //    //MemberMissing();
-                //}
-                //else
-                //{
+            if (viewAll == false)
+            {
+                do
+                {
+                    string header = "       Välj medlem att visa        ";
+                    Member memberSelection = GetMember(header, members);
+
+                    if (memberSelection == null)
+                    {
+
+                        break;
+                    }
+                    else
+                    {
+
+                        Console.Clear();
+                        
+                        memberView.Render(memberSelection);
+
+                        ContinueOnKeyPressed();
+                    }
+                } while (true);
+            }            
+            else
+            {
+                if (members == null || members.Count == 0)
+                {
+                    //MemberMissing();
+                }
+                else
+                {
                     Console.Clear();
                     memberView.Render(members);
                     ContinueOnKeyPressed();
-                //}
-            //}
+                }
+            }
         }
     }
 }
