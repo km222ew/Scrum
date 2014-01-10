@@ -201,6 +201,7 @@ namespace Medlemsregister
                 {
                     
                     Console.WriteLine("\n ═════════════════════════════════════\n");
+
                     Console.Write(" Förnamn: ");
                     firstName = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(firstName))
@@ -208,6 +209,7 @@ namespace Medlemsregister
                         Messages(0);
                         continue;
                     }
+
                     Console.Write(" Efternamn: ");
                     lastName = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(lastName))
@@ -216,33 +218,29 @@ namespace Medlemsregister
                         continue;
                     }
                         
-                    while (phoneNumber <=0)
+                    Console.Write(" Telefonnummer: ");
+                    if (int.TryParse(Console.ReadLine(), out phoneNumber) && phoneNumber >= 0 && phoneNumber <= int.MaxValue)
                     {
-                        Console.Write(" Telefonnummer: ");
-                        if (int.TryParse(Console.ReadLine(), out phoneNumber) && phoneNumber >= 0 && phoneNumber <= int.MaxValue)
-                        {
-                            id = MemberId(members);
-                            members.Add(new Member(firstName, lastName, phoneNumber, id));
+                        id = MemberId(members);
+                        members.Add(new Member(firstName, lastName, phoneNumber, id));
 
-                            Console.WriteLine("\n ═════════════════════════════════════\n");
-                            Console.BackgroundColor = ConsoleColor.DarkGreen;
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.WriteLine(" ╔═══════════════════════════════════╗ ");
-                            Console.WriteLine(" ║       Medlemmen har skapats       ║ ");
-                            Console.WriteLine(" ╚═══════════════════════════════════╝ ");
-                            Console.BackgroundColor = ConsoleColor.Black;
-                            Console.ResetColor();
-                            Console.WriteLine("\n");
+                        Console.WriteLine("\n ═════════════════════════════════════\n");
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(" ╔═══════════════════════════════════╗ ");
+                        Console.WriteLine(" ║       Medlemmen har skapats       ║ ");
+                        Console.WriteLine(" ╚═══════════════════════════════════╝ ");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ResetColor();
+                        Console.WriteLine("\n");
 
-                            SavePrompt(members);
+                        SavePrompt(members);
 
                             
-                        }
-                        else
-                        {
-                            Messages(1);
-                        }
-                  
+                    }
+                    else
+                    {
+                        Messages(1);
                     }
 
                     phoneNumber = 0;                    
@@ -308,12 +306,12 @@ namespace Medlemsregister
 
                 Console.BackgroundColor = ConsoleColor.DarkGreen;
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(" ╔══════════════════════════════════════════╗ ");
+                Console.WriteLine("\n ╔══════════════════════════════════════════╗ ");
                 Console.WriteLine(" ║          Medlemmen har ändrats           ║ ");
-                Console.WriteLine(" ╚══════════════════════════════════════════╝ ");
+                Console.WriteLine(" ╚══════════════════════════════════════════╝ \n");
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ResetColor();
-                ContinueOnKeyPressed();
+                
             }
 
             
@@ -321,7 +319,7 @@ namespace Medlemsregister
 
         private static void SavePrompt(List<Member> members)
         {
-            Console.WriteLine("Vill du spara den nya medlemmen till registret [j/n]?");
+            Console.WriteLine("Vill du spara registret [j/n]?");
 
             ConsoleKeyInfo tan = Console.ReadKey(true);
 
@@ -433,10 +431,12 @@ namespace Medlemsregister
             string lastName;
             int phoneNumber = 0;
 
+            string header = "       Välj medlem att ändra       ";
+            Member memberSelection = GetMember(header, members);
+
             do
             {
-                string header = "       Välj medlem att ändra       ";
-                Member memberSelection = GetMember(header, members);
+                
 
                 if (memberSelection == null)
                 {
@@ -459,7 +459,7 @@ namespace Medlemsregister
                     Console.WriteLine(" 2. Ändra efternamn");
                     Console.WriteLine(" 3. Ändra telefonnummer");
                     Console.WriteLine("\n ═════════════════════════════════════\n");
-                    Console.Write(" Ange menyval [0-1]: ");
+                    Console.Write(" Ange menyval [0-3]: ");
                     
 
                     if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 3)
@@ -477,7 +477,9 @@ namespace Medlemsregister
 
                             memberSelection.FirstName = firstName;
 
+                            Messages(3);
 
+                            SavePrompt(members);
                             
                         }
                         else if (index == 2)
@@ -494,6 +496,8 @@ namespace Medlemsregister
                             memberSelection.LastName = lastName;
 
                             Messages(3);
+
+                            SavePrompt(members);
                         }
                         else if (index == 3)
                         {
@@ -502,19 +506,20 @@ namespace Medlemsregister
                             if (int.TryParse(Console.ReadLine(), out phoneNumber) && phoneNumber >= 0 && phoneNumber <= int.MaxValue)
                             {
                                 memberSelection.PhoneNumber = phoneNumber;
-                            
-                            
-                            
+
+                                Messages(3);
+
+                                SavePrompt(members);
                             }
-                            firstName = Console.ReadLine();
+
                             Messages(1);
 
-                            memberSelection.PhoneNumber = phoneNumber;
                         }
                         else
                         {
                             break;
                         }
+                        
                     }
                     else
                     {
@@ -525,7 +530,7 @@ namespace Medlemsregister
                     }
                     //(memberSelection);
 
-                    ContinueOnKeyPressed();
+                    
                 }
             } while (true);
 
