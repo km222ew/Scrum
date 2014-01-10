@@ -34,7 +34,7 @@ namespace Medlemsregister
                         break;
 
                     case 3:
-                        //EditMember(memberRegister);
+                        EditMember(memberRegister);
                         break;
 
                     case 4:
@@ -127,7 +127,7 @@ namespace Medlemsregister
                     Console.WriteLine(" ║{0}║ ", header);
                     Console.WriteLine(" ╚═══════════════════════════════════╝ ");
                     Console.BackgroundColor = ConsoleColor.Black;
-                    Console.WriteLine();
+                    Console.WriteLine("\n -------------------------------------\n");
                     Console.WriteLine(" 0. Avbryt.");
                     Console.WriteLine("\n -------------------------------------\n");
 
@@ -189,9 +189,10 @@ namespace Medlemsregister
             Console.WriteLine(" ║       Registrera ny medlem        ║ ");
             Console.WriteLine(" ╚═══════════════════════════════════╝ ");
             Console.ResetColor();
+            Console.WriteLine("\n -------------------------------------\n");
             Console.WriteLine(" 0. Avbryt.");
             Console.WriteLine(" 1. Registrera ny medlem.");
-            Console.WriteLine("\n ═════════════════════════════════════\n");
+            Console.WriteLine("\n -------------------------------------\n");
             Console.Write(" Ange menyval [0-1]: ");
 
             if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 1)
@@ -204,14 +205,14 @@ namespace Medlemsregister
                     firstName = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(firstName))
                     {
-                        EmptyString();
+                        Messages(0);
                         continue;
                     }
                     Console.Write(" Efternamn: ");
                     lastName = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(lastName))
                     {
-                        EmptyString();
+                        Messages(0);
                         continue;
                     }
                         
@@ -233,33 +234,22 @@ namespace Medlemsregister
                             Console.ResetColor();
                             Console.WriteLine("\n");
 
-                            Console.WriteLine("Vill du spara den nya medlemmen till registret [j/n]?");
-
-                            ConsoleKeyInfo tan = Console.ReadKey(true);
-
-                            if (tan.KeyChar == 'j')
-                            {
-                                SaveRegister(members);
-                            }
-                            else if ( tan.KeyChar == 'n')
-                            {
-                                Console.ForegroundColor = ConsoleColor.White;
-                                Console.BackgroundColor = ConsoleColor.DarkYellow;
-                                Console.WriteLine("\nInget har sparats");
-                                Console.ResetColor();
-                                ContinueOnKeyPressed();
-                            }
+                            SavePrompt(members);
 
                             
+                        }
+                        else
+                        {
+                            Messages(1);
                         }
                   
                     }
 
                     phoneNumber = 0;                    
                 }
-                else if (index == 0)
+                else
                 {
-                    return members ;
+                    return members;
                 }                
             }
             else
@@ -273,18 +263,81 @@ namespace Medlemsregister
             } while (true);
         }
                 
-        private static void EmptyString()
+        private static void Messages(int choice)
         {
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" ╔══════════════════════════════════════════╗ ");
-            Console.WriteLine(" ║    Du måste fylla i alla fält för att    ║ ");
-            Console.WriteLine(" ║        kunna registrera en medlem        ║ ");
-            Console.WriteLine(" ╚══════════════════════════════════════════╝ ");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ResetColor();
-            ContinueOnKeyPressed();
+            if (choice == 0)
+            {
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" ╔══════════════════════════════════════════╗ ");
+                Console.WriteLine(" ║    Du måste fylla i alla fält för att    ║ ");
+                Console.WriteLine(" ║        kunna registrera en medlem        ║ ");
+                Console.WriteLine(" ╚══════════════════════════════════════════╝ ");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ResetColor();
+                ContinueOnKeyPressed();
+            }
+            else if (choice == 1) 
+            {
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" ╔══════════════════════════════════════════╗ ");
+                Console.WriteLine(" ║      Fältet får inte vara tomt och       ║ ");
+                Console.WriteLine(" ║        får bara innehålla siffror        ║ ");
+                Console.WriteLine(" ╚══════════════════════════════════════════╝ ");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ResetColor();
+                ContinueOnKeyPressed();
+            }
+            else if (choice == 2)
+            {
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" ╔══════════════════════════════════════════╗ ");
+                Console.WriteLine(" ║        Fältet får inte vara tomt         ║ ");
+                Console.WriteLine(" ╚══════════════════════════════════════════╝ ");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ResetColor();
+                ContinueOnKeyPressed();
+            }
+            else if (choice == 3)
+            {
+
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" ╔══════════════════════════════════════════╗ ");
+                Console.WriteLine(" ║          Medlemmen har ändrats           ║ ");
+                Console.WriteLine(" ╚══════════════════════════════════════════╝ ");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ResetColor();
+                ContinueOnKeyPressed();
+            }
+
+            
+        }
+
+        private static void SavePrompt(List<Member> members)
+        {
+            Console.WriteLine("Vill du spara den nya medlemmen till registret [j/n]?");
+
+            ConsoleKeyInfo tan = Console.ReadKey(true);
+
+            if (tan.KeyChar == 'j')
+            {
+                SaveRegister(members);
+            }
+            else if (tan.KeyChar == 'n')
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\nInget har sparats");
+                Console.ResetColor();
+                ContinueOnKeyPressed();
+            }
+        
         }
 
         private static int MemberId(List<Member> members)
@@ -372,6 +425,113 @@ namespace Medlemsregister
                 ContinueOnKeyPressed();
             }            
         }
+
+        private static void EditMember(List<Member> members) 
+        {
+            int index;
+            string firstName;
+            string lastName;
+            int phoneNumber = 0;
+
+            do
+            {
+                string header = "       Välj medlem att ändra       ";
+                Member memberSelection = GetMember(header, members);
+
+                if (memberSelection == null)
+                {
+
+                    break;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(" ╔═══════════════════════════════════╗ ");
+                    Console.WriteLine(" ║         Ändring av medlem         ║ ");
+                    Console.WriteLine(" ╚═══════════════════════════════════╝ ");
+                    Console.ResetColor();
+                    Console.WriteLine("\n -------------------------------------\n");
+                    Console.WriteLine(" 0. Avbryt.");
+                    Console.WriteLine("\n -------------------------------------\n");
+                    Console.WriteLine(" 1. Ändra förnamn");
+                    Console.WriteLine(" 2. Ändra efternamn");
+                    Console.WriteLine(" 3. Ändra telefonnummer");
+                    Console.WriteLine("\n ═════════════════════════════════════\n");
+                    Console.Write(" Ange menyval [0-1]: ");
+                    
+
+                    if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 3)
+                    {
+                        if (index == 1)
+                        {
+                            Console.WriteLine("\n -------------------------------------\n");
+                            Console.Write(" Förnamn: ");
+                            firstName = Console.ReadLine();
+                            if (string.IsNullOrWhiteSpace(firstName))
+                            {
+                                Messages(2);
+                                continue;
+                            }
+
+                            memberSelection.FirstName = firstName;
+
+
+                            
+                        }
+                        else if (index == 2)
+                        {
+                            Console.WriteLine("\n -------------------------------------\n");
+                            Console.Write(" Efternamn: ");
+                            lastName = Console.ReadLine();
+                            if (string.IsNullOrWhiteSpace(lastName))
+                            {
+                                Messages(2);
+                                continue;
+                            }
+
+                            memberSelection.LastName = lastName;
+
+                            Messages(3);
+                        }
+                        else if (index == 3)
+                        {
+                            Console.WriteLine("\n -------------------------------------\n");
+                            Console.Write(" Telefonnummer: ");
+                            if (int.TryParse(Console.ReadLine(), out phoneNumber) && phoneNumber >= 0 && phoneNumber <= int.MaxValue)
+                            {
+                                memberSelection.PhoneNumber = phoneNumber;
+                            
+                            
+                            
+                            }
+                            firstName = Console.ReadLine();
+                            Messages(1);
+
+                            memberSelection.PhoneNumber = phoneNumber;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\n FEL! Ange nummer mellan 0 och 3.\n");
+                        ContinueOnKeyPressed();
+                    }
+                    //(memberSelection);
+
+                    ContinueOnKeyPressed();
+                }
+            } while (true);
+
+        
+        }
+
 
         private static void ViewMember(List<Member> members, bool viewAll = false)
         {
