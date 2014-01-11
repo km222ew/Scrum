@@ -38,7 +38,7 @@ namespace Medlemsregister
                         break;
 
                     case 4:
-                        //DeleteMember(memberRegister);
+                        DeleteMember(memberRegister);
                         break;
 
                     case 5:
@@ -424,6 +424,49 @@ namespace Medlemsregister
             }            
         }
 
+
+        private static void DeleteMember(List<Member> members)
+        {
+            do
+            {
+                string header = "     Välj medlem att ta bort       ";
+                Member memberSelection = GetMember(header, members);
+
+                if (memberSelection == null)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine();
+                    Console.WriteLine("Är du säker på att du vill ta bort medlem '{0}, {1} {2} [j/n]?", memberSelection.ID, memberSelection.FirstName, memberSelection.LastName);
+                    Console.ResetColor();
+
+                    ConsoleKeyInfo tan = Console.ReadKey(true);
+
+                    if (tan.KeyChar == 'j')
+                    {
+                        members.Remove(memberSelection);
+
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine("\nMedlemmen har tagits bort");
+                        Console.ResetColor();
+                        ContinueOnKeyPressed();
+                    }
+                    else if(tan.KeyChar == 'n')
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("\nIngen medlem har tagits bort");
+                        Console.ResetColor();
+                        ContinueOnKeyPressed();
+                    }
+                }
+            } while (true);
+        }
         private static void EditMember(List<Member> members) 
         {
             int index;
