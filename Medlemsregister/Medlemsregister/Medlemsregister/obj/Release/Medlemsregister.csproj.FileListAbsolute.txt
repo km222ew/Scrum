@@ -1,0 +1,5 @@
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\bin\Release\Medlemsregister.exe.config
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\bin\Release\Medlemsregister.exe
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\bin\Release\Medlemsregister.pdb
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\obj\Release\Medlemsregister.exe
+C:\Users\Vanilla\Documents\GitHub\Scrum\Medlemsregister\Medlemsregister\Medlemsregister\obj\Release\Medlemsregister.pdb

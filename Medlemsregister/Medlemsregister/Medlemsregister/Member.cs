@@ -12,7 +12,6 @@ namespace Medlemsregister
     [Serializable()]
     class Member : IComparable, IComparable <Member>        
     {
-
         private string _firstname;
         private string _lastName;
         private int _phoneNumber;
@@ -20,7 +19,6 @@ namespace Medlemsregister
 
         public string FirstName
         {
-
             get { return _firstname; }
             set
             {
@@ -43,23 +41,18 @@ namespace Medlemsregister
                 }
                 _lastName = value;
             }
-
-
         }
 
         public int PhoneNumber
         {
             get { return _phoneNumber; }
-            set { _phoneNumber = value; }
-        
-
+            set { _phoneNumber = value; }        
         }
 
         public int ID
         {
             get { return _iD; }
             set { _iD = value; }
-
         }
     
         public int CompareTo(object obj)
@@ -77,7 +70,6 @@ namespace Medlemsregister
             }
 
             return this.ID.CompareTo(other.ID);
-
         }
 
         public int CompareTo(Member other)
@@ -105,7 +97,5 @@ namespace Medlemsregister
             ID = iD;
         
         }
-
-
     }
 }
