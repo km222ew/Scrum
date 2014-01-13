@@ -12,6 +12,7 @@ namespace Medlemsregister
     {
         static void Main(string[] args)
         {
+            //Laddar den sparade listan med medlemmar från filen
             List<Member> memberRegister = OpenRegister();
 
             bool terminate = false;
@@ -105,6 +106,7 @@ namespace Medlemsregister
             } while (true);
         }
 
+        //Används för att välja en medlem att hantera
         private static Member GetMember(string header, List<Member> members)
         {
             do
@@ -254,7 +256,8 @@ namespace Medlemsregister
                 }
             } while (true);
         }
-                
+        
+        //Olika varnings-meddelanden
         private static void Messages(int choice)
         {
             if (choice == 0)
@@ -327,6 +330,7 @@ namespace Medlemsregister
             }        
         }
 
+        //Genererar ett id-nummer
         private static int MemberId(List<Member> members)
         {
             int id = 0;
@@ -555,6 +559,7 @@ namespace Medlemsregister
             } while (true);        
         }
 
+        //Visar antingen en eller alla medlemmar beroende på om viewAll är true eller false
         private static void ViewMember(List<Member> members, bool viewAll = false)
         {
             MemberView memberView = new MemberView();

@@ -9,6 +9,7 @@ using System.IO;
 
 namespace Medlemsregister
 {
+    //Gör att object av klassen kan sparas ner på fil
     [Serializable()]
     class Member : IComparable, IComparable <Member>        
     {
@@ -54,7 +55,8 @@ namespace Medlemsregister
             get { return _iD; }
             set { _iD = value; }
         }
-    
+        
+        //Gör att man kan sortera listan med medlemmar, i det här fallet sorteras de på id-numret
         public int CompareTo(object obj)
         {
             if (obj == null)
@@ -72,6 +74,7 @@ namespace Medlemsregister
             return this.ID.CompareTo(other.ID);
         }
 
+        //Gör att man kan sortera listan med medlemmar, i det här fallet sorteras de på id-numret
         public int CompareTo(Member other)
         {
             if (other == null)
